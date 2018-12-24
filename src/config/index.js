@@ -7,7 +7,7 @@ const serverRoot = path.dirname(__dirname)
 const root = path.resolve(serverRoot, '../')
 const staticDir = path.join(root, 'static')
 let config = {
-  name: 'hospital',
+  name: 'attendance',
   debug: false,
   host: 'localhost',
   env: 'dev',

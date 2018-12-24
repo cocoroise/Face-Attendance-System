@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 
+// 验证token的中间件
 export default async function (ctx, next) {
   const authorization = ctx.get('Authorization')
   if (!authorization) {

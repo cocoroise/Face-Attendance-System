@@ -1,8 +1,8 @@
 {
   "apps": [
     {
-      "name": "ocean",
-      "script": "dist/server.js",
+      "name": "fect-attendance",
+      "script": "server.js",
       "exec_mode": "cluster",
       "instances": 0,
       "max_memory_restart": "1G",
