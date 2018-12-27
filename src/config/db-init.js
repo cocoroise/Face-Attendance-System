@@ -1,3 +1,6 @@
+/**
+ * 开启数据库连接的文件
+ */
 const Sequelize = require('sequelize')
 const config = require('./index.js')
 const seq = new Sequelize(config.name, config.user, config.pass, {

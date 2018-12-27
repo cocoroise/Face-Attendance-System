@@ -6,13 +6,13 @@ var respondFormatter = ctx => {
   if (ctx.body) {
     ctx.body = {
       code: 0,
-      message: 'success',
+      message: '默认的success消息',
       data: ctx.body
     }
   } else {
     ctx.body = {
       code: 0,
-      message: 'No ctx body'
+      message: '默认消息'
     }
   }
 }

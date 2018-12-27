@@ -1,15 +1,13 @@
 {
-  "apps": [
-    {
-      "name": "fect-attendance",
-      "script": "server.js",
-      "exec_mode": "cluster",
-      "instances": 0,
-      "max_memory_restart": "1G",
-      "autorestart": true,
-      "node_args": [],
-      "args": [],
-      "env": {}
-    }
-  ]
+  "apps": [{
+    "name": "face-attendance",
+    "script": "server.js",
+    "exec_mode": "cluster",
+    "instances": 0,
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {}
+  }]
 }
