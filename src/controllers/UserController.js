@@ -63,9 +63,6 @@ class UserController {
     let {
       id
     } = user_query
-    for (let i = 0; i < 5; i++){
-      console.log('aaaaaaaaaaaaaa职业：'+ user_query.work)
-    }
     await Dao.update(User, user_query, {
         id: id
       })
