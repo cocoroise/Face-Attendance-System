@@ -4,7 +4,7 @@
 import mysqlConn from '../config/db-init'
 import sequelize from 'sequelize'
 
-const user = mysqlConn.define('user', {
+const users = mysqlConn.define('users', {
   user_id: {
     type: sequelize.INTEGER(11),
     primaryKey: true,
@@ -22,4 +22,4 @@ const user = mysqlConn.define('user', {
   timestamps: false
 })
 
-export default user
+export default users

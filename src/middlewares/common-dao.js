@@ -86,7 +86,7 @@ class CommonDao {
   }
 
 }
-export default CommonDao
+export default new CommonDao()
 // module.exports = {
 //   findOne: findOne,
 //   findAll: findAll,

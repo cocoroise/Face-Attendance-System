@@ -1,11 +1,13 @@
 /**
- * 管理员，学生和教师的controller
+ * 管理员，学生和教师的接口
+ * 暂时只有CRUD的接口
+ * 有需要再加
  */
 
 import user from '../models/user'
 import student from '../models/student'
 import teacher from '../models/teacher'
-const Dao = require('../middlewares/common-dao')
+import Dao from '../middlewares/common-dao'
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
@@ -15,11 +17,15 @@ class CustomController {
      */
     // get
     async getAllUsers(ctx) {
-        const res = await Dao.findAll(user)
-        ctx.body = {
-            res
+        try {
+            const res = await Dao.findAll(user)
+            ctx.body = {
+                res
+            }
+        } catch (err) {
+            console.log('err->', err)
         }
-        return res
+        return true
     }
     // get
     async getUserById(ctx) {
@@ -27,11 +33,13 @@ class CustomController {
             id
         } = ctx.query
         await Dao.findAll(user, {
-                id: id
+                user_id: id
             })
             .then(res => {
                 ctx.body = res
-            }).catch(() => {
+                console.log('getUserById->', res)
+            })
+            .catch(() => {
                 throw new Error('get user by id error')
             })
         return true
@@ -39,40 +47,41 @@ class CustomController {
     // post
     async findOrCreateUserById(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(user, {
-            query
-        }).spread((user, res) => {
-            if (res) {
-                // 获取user的信息返回给ctx
-                ctx.body = user.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create user error')
-        })
+        await Dao.findOrCreate(user, query)
+            .then(res => {
+                ctx.body = res
+            })
+            .catch(() => {
+                throw new Error('find or create user error')
+            })
+        return true
     }
     // post
     async updateUser(ctx) {
         let query = ctx.request.body
         let {
-            id
+            user_id
         } = query
         await Dao.update(user, query, {
-            user_id: id
-        }).then(res => {
-            ctx.body = res
-        }).catch(() => {
-            throw new Error('update user error')
-        })
+                user_id: user_id
+            })
+            .then(res => {
+                ctx.body = res
+            })
+            .catch(() => {
+                throw new Error('update user error')
+            })
+        return true
     }
     // get
     async deleteUser(ctx) {
         let query = ctx.query
         await Dao.destroy(user, query)
-            .then((res) => {
+            .then(res => {
                 ctx.body = true
                 return res
-            }).catch(() => {
+            })
+            .catch(() => {
                 throw new Error('delete user error')
             })
     }
@@ -94,11 +103,15 @@ class CustomController {
             name
         } = ctx.query
         await Dao.findAll(teacher, {
-                name: name
+                // 模糊搜索
+                name: {
+                    [Op.like]: `%${name}%`
+                }
             })
             .then(res => {
                 ctx.body = res
-            }).catch(() => {
+            })
+            .catch(() => {
                 throw new Error('get teacher error')
             })
         return true
@@ -106,18 +119,13 @@ class CustomController {
     // post
     async findOrCreateTeacher(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(teacher, {
-            query
-        }).spread((teacher, res) => {
-            if (res) {
-                // 获取user的信息返回给ctx
-                ctx.body = teacher.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create teacher error')
+        await Dao.findOrCreate(teacher, query).then(res => {
+            ctx.body = res
+        }).catch(() => {
+            throw new Error('create teacher error')
         })
     }
+
     // post
     async updateTeacher(ctx) {
         let query = ctx.request.body
@@ -125,21 +133,24 @@ class CustomController {
             phone
         } = query
         await Dao.update(teacher, query, {
-            phone: phone
-        }).then(res => {
-            ctx.body = res
-        }).catch(() => {
-            throw new Error('update teacher error')
-        })
+                phone: phone
+            })
+            .then(res => {
+                ctx.body = res
+            })
+            .catch(() => {
+                throw new Error('update teacher error')
+            })
     }
     // get
     async deleteTeacher(ctx) {
         let query = ctx.query
         await Dao.destroy(teacher, query)
-            .then((res) => {
+            .then(res => {
                 ctx.body = true
                 return res
-            }).catch(() => {
+            })
+            .catch(() => {
                 throw new Error('delete teacher error')
             })
     }
@@ -160,11 +171,14 @@ class CustomController {
             name
         } = ctx.query
         await Dao.findAll(student, {
-                name: name
+                name: {
+                    [Op.like]: `%${name}%`
+                }
             })
             .then(res => {
                 ctx.body = res
-            }).catch(() => {
+            })
+            .catch(() => {
                 throw new Error('get student by name error')
             })
         return true
@@ -174,13 +188,11 @@ class CustomController {
         let query = ctx.request.body
         await Dao.findOrCreate(student, {
             query
-        }).spread((student, res) => {
-            if (res) {
-                ctx.body = student.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create student error')
+        }).then(res => {
+            ctx.body = res
+        }).catch(err => {
+            console.log('findOrCreateStudent->>>', err)
+            throw new Error('find or create student error')
         })
     }
     // post
@@ -190,24 +202,27 @@ class CustomController {
             phone
         } = query
         await Dao.update(student, query, {
-            phone: phone
-        }).then(res => {
-            ctx.body = res
-        }).catch(() => {
-            throw new Error('update studnet error')
-        })
+                phone: phone
+            })
+            .then(res => {
+                ctx.body = res
+            })
+            .catch(() => {
+                throw new Error('update studnet error')
+            })
     }
     // get
     async deleteStudent(ctx) {
         let query = ctx.query
         await Dao.destroy(student, query)
-            .then((res) => {
+            .then(res => {
                 ctx.body = true
                 return res
-            }).catch(() => {
+            })
+            .catch(() => {
                 throw new Error('delete student error')
             })
     }
 }
 
-export default CustomController
+export default new CustomController()
