@@ -24,7 +24,8 @@ const major = mysqlConn.define('major', {
     },
     intro: sequelize.STRING(200),
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true,
 })
 
 export default major

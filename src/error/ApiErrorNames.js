@@ -1,16 +1,21 @@
 // API错误名称
 var ApiErrorNames = {
   UNKNOW_ERROR: 'unknowError',
-  // user
-  USER_NOT_EXIST: 'userNotExist',
-  ADD_USER_ERROR: 'addUserError',
-  UPDATE_USER_ERROR: 'updateUserError',
-  DELETE_USER_ERROR: 'deleteUserError',
-  // hos
-  HOS_NOT_EXIST: 'hosNotExist',
-  ADD_HOS_ERROR: 'addHosError',
-  UPDATE_HOS_ERROR: 'updateHosError',
-  DELETE_HOS_ERROR: 'deleteHosError'
+  // custom
+  CUSTOM_NOT_EXIST: 'CustomNotExist',
+  ADD_CUSTOM_ERROR: 'addCustomError',
+  UPDATE_CUSTOM_ERROR: 'updateCustomError',
+  DELETE_CUSTOM_ERROR: 'deleteCustomError',
+  // class
+  CLASS_NOT_EXIST: 'ClassNotExist',
+  ADD_CLASS_ERROR: 'addClassError',
+  UPDATE_CLASS_ERROR: 'updateClassError',
+  DELETE_CLASS_ERROR: 'deleteClassError',
+  // school
+  SCHOOL_NOT_EXIST: 'SchoolNotExist',
+  ADD_SCHOOL_ERROR: 'addSchoolError',
+  UPDATE_SCHOOL_ERROR: 'updateSchoolError',
+  DELETE_SCHOOL_ERROR: 'deleteSchoolError'
 }
 
 // API错误名称对应的错误信息
@@ -20,37 +25,56 @@ errorMap.set(ApiErrorNames.UNKNOW_ERROR, {
   code: -1,
   message: '未知错误'
 })
-errorMap.set(ApiErrorNames.USER_NOT_EXIST, {
+// CUSTOM
+errorMap.set(ApiErrorNames.CUSTOM_NOT_EXIST, {
   code: 101,
   message: '用户不存在'
 })
-errorMap.set(ApiErrorNames.ADD_USER_ERROR, {
+errorMap.set(ApiErrorNames.ADD_CUSTOM_ERROR, {
   code: 102,
   message: '添加用户失败'
 })
-errorMap.set(ApiErrorNames.UPDATE_USER_ERROR, {
+errorMap.set(ApiErrorNames.UPDATE_CUSTOM_ERROR, {
   code: 103,
   message: '更新用户失败'
 })
-errorMap.set(ApiErrorNames.DELETE_USER_ERROR, {
+errorMap.set(ApiErrorNames.DELETE_CUSTOM_ERROR, {
   code: 104,
   message: '删除用户失败'
 })
-errorMap.set(ApiErrorNames.HOS_NOT_EXIST, {
+// CLASS
+errorMap.set(ApiErrorNames.CLASS_NOT_EXIST, {
   code: 105,
-  message: '住院用户不存在'
+  message: 'class不存在'
 })
-errorMap.set(ApiErrorNames.ADD_HOS_ERROR, {
+errorMap.set(ApiErrorNames.ADD_CLASS_ERROR, {
   code: 106,
-  message: '添加住院用户失败'
+  message: '添加class失败'
 })
-errorMap.set(ApiErrorNames.UPDATE_HOS_ERROR, {
+errorMap.set(ApiErrorNames.UPDATE_CLASS_ERROR, {
   code: 107,
-  message: '更新住院用户失败'
+  message: '更新class失败'
 })
-errorMap.set(ApiErrorNames.DELETE_HOS_ERROR, {
+errorMap.set(ApiErrorNames.DELETE_CLASS_ERROR, {
   code: 108,
-  message: '删除住院用户失败'
+  message: '删除class失败'
+})
+// SCHOOL
+errorMap.set(ApiErrorNames.SCHOOL_NOT_EXIST, {
+  code: 109,
+  message: 'school不存在'
+})
+errorMap.set(ApiErrorNames.ADD_SCHOOL_ERROR, {
+  code: 110,
+  message: '添加school失败'
+})
+errorMap.set(ApiErrorNames.UPDATE_SCHOOL_ERROR, {
+  code: 111,
+  message: '更新school失败'
+})
+errorMap.set(ApiErrorNames.DELETE_SCHOOL_ERROR, {
+  code: 112,
+  message: '删除SCHOOL失败'
 })
 
 // 根据错误名称获取错误信息

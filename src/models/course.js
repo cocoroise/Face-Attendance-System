@@ -16,7 +16,8 @@ const course = mysqlConn.define('course', {
     },
     credits: sequelize.DECIMAL(2),
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true,
 })
 
 export default course

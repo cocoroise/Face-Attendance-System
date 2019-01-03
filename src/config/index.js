@@ -8,7 +8,7 @@ const root = path.resolve(serverRoot, '../')
 const staticDir = path.join(root, 'static')
 let config = {
   name: 'attendance',
-  debug: false,
+  debug: true,
   host: 'localhost',
   env: 'dev',
   user: 'root',

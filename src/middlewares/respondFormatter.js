@@ -12,7 +12,7 @@ var respondFormatter = ctx => {
   } else {
     ctx.body = {
       code: 0,
-      message: '默认消息'
+      message: '没有这个API'
     }
   }
 }

@@ -9,18 +9,24 @@ import classroom from '../models/classroom'
 import classtable from '../models/classtable'
 import Dao from '../middlewares/common-dao'
 
+import ApiError from '../error/ApiError'
+import ApiErrorNames from '../error/ApiErrorNames'
+
 class ClassController {
     /**
      * class用接口
      * class是关键字 这里加下划线
      */
-
     // get
     async getAllClass(ctx) {
         const res = await Dao.findAll(_class)
-        ctx.body = {
-            res
-        }
+            .then(res => {
+                ctx.body = {
+                    res
+                }
+            }).catch(err => {
+                throw new ApiError(ApiErrorNames.CLASS_NOT_EXIST)
+            })
         return res
     }
     // get
@@ -34,22 +40,19 @@ class ClassController {
             .then(res => {
                 ctx.body = res
             }).catch(() => {
-                throw new Error('get class by id error')
+                throw new ApiError(ApiErrorNames.CLASS_NOT_EXIST)
             })
         return true
     }
     // post
-    async findOrCreateClassById(ctx) {
+    async addClass(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(_class, {
+        await Dao.create(_class, {
             query
-        }).spread((user, res) => {
-            if (res) {
-                ctx.body = user.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create class error')
+        }).then(res => {
+            ctx.body = res
+        }).catch(err => {
+            throw new ApiError(ApiErrorNames.ADD_CLASS_ERROR)
         })
     }
     // post
@@ -62,8 +65,8 @@ class ClassController {
             class_id: class_id
         }).then(res => {
             ctx.body = res
-        }).catch(() => {
-            throw new Error('update class error')
+        }).catch((err) => {
+            throw new ApiError(ApiErrorNames.UPDATE_CLASS_ERROR)
         })
     }
     // get
@@ -71,10 +74,9 @@ class ClassController {
         let query = ctx.query
         await Dao.destroy(_class, query)
             .then((res) => {
-                ctx.body = true
-                return res
+                ctx.body = res
             }).catch(() => {
-                throw new Error('delete class error')
+                throw new ApiError(ApiErrorNames.DELETE_CLASS_ERROR)
             })
     }
     /**
@@ -100,22 +102,19 @@ class ClassController {
             .then(res => {
                 ctx.body = res
             }).catch(() => {
-                throw new Error('get classroom by id error')
+                throw new ApiError(ApiErrorNames.CLASS_NOT_EXIST)
             })
         return true
     }
     // post
-    async findOrCreateClassroomById(ctx) {
+    async addClassroom(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(classroom, {
+        await Dao.create(classroom, {
             query
-        }).spread((model, res) => {
-            if (res) {
-                ctx.body = model.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create classroom error')
+        }).then(res => {
+            ctx.body = res
+        }).catch(err => {
+            throw new ApiError(ApiErrorNames.ADD_CLASS_ERROR)
         })
     }
     // post
@@ -128,8 +127,8 @@ class ClassController {
             classroom_id: classroom_id
         }).then(res => {
             ctx.body = res
-        }).catch(() => {
-            throw new Error('update classroom error')
+        }).catch((err) => {
+            throw new ApiError(ApiErrorNames.UPDATE_CLASS_ERROR)
         })
     }
     // get
@@ -137,10 +136,9 @@ class ClassController {
         let query = ctx.query
         await Dao.destroy(classroom, query)
             .then((res) => {
-                ctx.body = true
-                return res
+                ctx.body = res
             }).catch(() => {
-                throw new Error('delete classroom error')
+                throw new ApiError(ApiErrorNames.DELETE_CLASS_ERROR)
             })
     }
     /**
@@ -148,10 +146,11 @@ class ClassController {
      */
     // get
     async getAllClasstable(ctx) {
-        const res = await Dao.findAll(classtable)
-        ctx.body = {
-            res
-        }
+        const res = await Dao.findAll(classtable).then(res => {
+            ctx.body = {
+                res
+            }
+        })
         return res
     }
     // get
@@ -165,22 +164,19 @@ class ClassController {
             .then(res => {
                 ctx.body = res
             }).catch(() => {
-                throw new Error('get classtable by id error')
+                throw new ApiError(ApiErrorNames.CLASS_NOT_EXIST)
             })
         return true
     }
     // post
-    async findOrCreateClasstableById(ctx) {
+    async addClasstable(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(classtable, {
+        await Dao.create(classtable, {
             query
-        }).spread((model, res) => {
-            if (res) {
-                ctx.body = model.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create classtable error')
+        }).then(res => {
+            ctx.body = res
+        }).catch( => {
+            throw new ApiError(ApiErrorNames.ADD_CLASS_ERROR)
         })
     }
     // post
@@ -194,7 +190,7 @@ class ClassController {
         }).then(res => {
             ctx.body = res
         }).catch(() => {
-            throw new Error('update classtable error')
+            throw new ApiError(ApiErrorNames.UPDATE_CLASS_ERROR)
         })
     }
     // get
@@ -205,7 +201,7 @@ class ClassController {
                 ctx.body = true
                 return res
             }).catch(() => {
-                throw new Error('delete classtable error')
+                throw new ApiError(ApiErrorNames.DELETE_CLASS_ERROR)
             })
     }
 }

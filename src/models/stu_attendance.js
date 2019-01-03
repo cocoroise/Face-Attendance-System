@@ -26,7 +26,8 @@ const stu_attendance = mysqlConn.define('stu_attendance', {
     status: sequelize.STRING(10),
     face: sequelize.STRING(10)
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true,
 })
 
 export default stu_attendance

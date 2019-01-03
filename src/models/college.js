@@ -17,7 +17,8 @@ const college = mysqlConn.define('college', {
     intro: sequelize.STRING(500),
     manager: sequelize.STRING(45)
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true,
 })
 
 export default college

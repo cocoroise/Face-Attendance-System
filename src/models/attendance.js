@@ -21,7 +21,8 @@ const attendance = mysqlConn.define('attendance', {
     attendance_percentage: sequelize.DECIMAL(2),
     classtable_id: sequelize.INTEGER(11)
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true
 })
 
 export default attendance

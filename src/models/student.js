@@ -32,9 +32,10 @@ const student = mysqlConn.define('student', {
     phone: sequelize.STRING(45),
     email: sequelize.STRING(45),
     address: sequelize.STRING(45),
-    nation: sequelize.STRING(45),
+    nation: sequelize.STRING(45)
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true,
 })
 
 export default student

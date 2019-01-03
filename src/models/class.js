@@ -22,7 +22,8 @@ const _class = mysqlConn.define('class', {
     headteacher_id: sequelize.INTEGER(11),
     college_id: sequelize.INTEGER(11),
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true
 })
 
 export default _class

@@ -11,6 +11,9 @@ import Dao from '../middlewares/common-dao'
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
+import ApiError from '../error/ApiError'
+import ApiErrorNames from '../error/ApiErrorNames'
+
 class CustomController {
     /**
      * 管理员用接口
@@ -23,36 +26,35 @@ class CustomController {
                 res
             }
         } catch (err) {
-            console.log('err->', err)
+            throw new ApiError(ApiErrorNames.CUSTOM_NOT_EXIST)
         }
         return true
     }
     // get
     async getUserById(ctx) {
         let {
-            id
+            user_id
         } = ctx.query
         await Dao.findAll(user, {
-                user_id: id
+                user_id: user_id
             })
             .then(res => {
                 ctx.body = res
-                console.log('getUserById->', res)
             })
             .catch(() => {
-                throw new Error('get user by id error')
+                throw new ApiError(ApiErrorNames.CUSTOM_NOT_EXIST)
             })
-        return true
     }
     // post
-    async findOrCreateUserById(ctx) {
+    async addUser(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(user, query)
+        console.log(query, '11111111111111')
+        await Dao.create(user, query)
             .then(res => {
                 ctx.body = res
             })
             .catch(() => {
-                throw new Error('find or create user error')
+                throw new ApiError(ApiErrorNames.ADD_CUSTOM_ERROR)
             })
         return true
     }
@@ -69,7 +71,7 @@ class CustomController {
                 ctx.body = res
             })
             .catch(() => {
-                throw new Error('update user error')
+                throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
             })
         return true
     }
@@ -82,7 +84,7 @@ class CustomController {
                 return res
             })
             .catch(() => {
-                throw new Error('delete user error')
+                throw new ApiError(ApiErrorNames.DELETE_CUSTOM_ERROR)
             })
     }
 
@@ -91,10 +93,13 @@ class CustomController {
      */
     // get
     async getAllTeachers(ctx) {
-        const res = await Dao.findAll(teacher)
-        ctx.body = {
-            res
-        }
+        const res = await Dao.findAll(teacher).then(res => {
+            ctx.body = {
+                res
+            }
+        }).catch(() => {
+            throw new ApiError(ApiErrorNames.CUSTOM_NOT_EXIST)
+        })
         return res
     }
     // get
@@ -117,12 +122,12 @@ class CustomController {
         return true
     }
     // post
-    async findOrCreateTeacher(ctx) {
+    async addTeacher(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(teacher, query).then(res => {
+        await Dao.create(teacher, query).then(res => {
             ctx.body = res
         }).catch(() => {
-            throw new Error('create teacher error')
+            throw new ApiError(ApiErrorNames.ADD_CUSTOM_ERROR)
         })
     }
 
@@ -139,7 +144,7 @@ class CustomController {
                 ctx.body = res
             })
             .catch(() => {
-                throw new Error('update teacher error')
+                throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
             })
     }
     // get
@@ -151,7 +156,7 @@ class CustomController {
                 return res
             })
             .catch(() => {
-                throw new Error('delete teacher error')
+                throw new ApiError(ApiErrorNames.DELETE_CUSTOM_ERROR)
             })
     }
     /**
@@ -159,10 +164,13 @@ class CustomController {
      */
     // get
     async getAllStudents(ctx) {
-        const res = await Dao.findAll(student)
-        ctx.body = {
-            res
-        }
+        const res = await Dao.findAll(student).then(res => {
+            ctx.body = {
+                res
+            }
+        }).catch(() => {
+            throw new ApiError(ApiErrorNames.CUSTOM_NOT_EXIST)
+        })
         return res
     }
     // get
@@ -178,21 +186,18 @@ class CustomController {
             .then(res => {
                 ctx.body = res
             })
-            .catch(() => {
-                throw new Error('get student by name error')
+            .catch((err) => {
+                throw new Error('get student by name error' + err)
             })
         return true
     }
     // post
-    async findOrCreateStudentById(ctx) {
+    async addStudent(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(student, {
-            query
-        }).then(res => {
+        await Dao.create(student, query).then(res => {
             ctx.body = res
         }).catch(err => {
-            console.log('findOrCreateStudent->>>', err)
-            throw new Error('find or create student error')
+            throw new ApiError(ApiErrorNames.ADD_CUSTOM_ERROR)
         })
     }
     // post
@@ -207,8 +212,8 @@ class CustomController {
             .then(res => {
                 ctx.body = res
             })
-            .catch(() => {
-                throw new Error('update studnet error')
+            .catch((err) => {
+                throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
             })
     }
     // get
@@ -219,8 +224,8 @@ class CustomController {
                 ctx.body = true
                 return res
             })
-            .catch(() => {
-                throw new Error('delete student error')
+            .catch((err) => {
+                throw new ApiError(ApiErrorNames.DELETE_CUSTOM_ERROR)
             })
     }
 }

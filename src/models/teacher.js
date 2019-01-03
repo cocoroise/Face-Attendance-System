@@ -32,9 +32,10 @@ const teacher = mysqlConn.define('teacher', {
     graduation: sequelize.STRING(45),
     hometown: sequelize.STRING(45),
     entertime: sequelize.DATE,
-    nation: sequelize.STRING(45),
+    nation: sequelize.STRING(45)
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true
 })
 
 export default teacher

@@ -29,7 +29,8 @@ const classtable = mysqlConn.define('classtable', {
     time_hour: sequelize.TIME(2),
     course_duration: sequelize.INTEGER(11),
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true,
 })
 
 export default classtable

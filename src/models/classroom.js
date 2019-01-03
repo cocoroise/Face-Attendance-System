@@ -15,7 +15,8 @@ const classroom = mysqlConn.define('classroom', {
         allowNull: false
     }
 }, {
-    timestamps: false
+        timestamps: false,
+        freezeTableName: true,
 })
 
 export default classroom

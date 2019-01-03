@@ -9,17 +9,21 @@ import course from '../models/course'
 import major from '../models/major'
 import Dao from '../middlewares/common-dao'
 
+import ApiError from '../error/ApiError'
+import ApiErrorNames from '../error/ApiErrorNames'
 export default class SchoolController {
     /**
      * college
      */
     // get
     async getAllCollege(ctx) {
-        const res = await Dao.findAll(college)
-        ctx.body = {
-            res
-        }
-        return res
+        await Dao.findAll(college)
+            .then(res => {
+                ctx.body = res
+            }).catch(err => {
+                throw new ApiError(ApiErrorNames.SCHOOL_NOT_EXIST)
+            })
+        return true
     }
     // get
     async getCollegeById(ctx) {
@@ -32,22 +36,19 @@ export default class SchoolController {
             .then(res => {
                 ctx.body = res
             }).catch(() => {
-                throw new Error('get college by id error')
+                throw new ApiError(ApiErrorNames.SCHOOL_NOT_EXIST)
             })
         return true
     }
     // post
-    async findOrCreateCollegeById(ctx) {
+    async addCollegeById(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(college, {
+        await Dao.create(college, {
             query
-        }).spread((model, res) => {
-            if (res) {
-                ctx.body = model.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create college error')
+        }).then(res => {
+            ctx.body = res
+        }).catch(err => {
+            throw new ApiError(ApiErrorNames.ADD_SCHOOL_ERROR)
         })
     }
     // post
@@ -61,7 +62,7 @@ export default class SchoolController {
         }).then(res => {
             ctx.body = res
         }).catch(() => {
-            throw new Error('update college error')
+            throw new ApiError(ApiErrorNames.UPDATE_SCHOOL_ERROR)
         })
     }
     // get
@@ -72,7 +73,7 @@ export default class SchoolController {
                 ctx.body = true
                 return res
             }).catch(() => {
-                throw new Error('delete college error')
+                throw new ApiError(ApiErrorNames.DELETE_SCHOOL_ERROR)
             })
     }
     /**
@@ -97,22 +98,19 @@ export default class SchoolController {
             .then(res => {
                 ctx.body = res
             }).catch(() => {
-                throw new Error('get course by id error')
+                throw new ApiError(ApiErrorNames.SCHOOL_NOT_EXIST)
             })
         return true
     }
     // post
-    async findOrCreateCourseById(ctx) {
+    async addCourse(ctx) {
         let query = ctx.request.body
         await Dao.findOrCreate(course, {
             query
-        }).spread((model, res) => {
-            if (res) {
-                ctx.body = model.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create course error')
+        }).then(res => {
+            ctx.body = res
+        }).catch(err => {
+            throw new ApiError(ApiErrorNames.ADD_SCHOOL_ERROR)
         })
     }
     // post
@@ -126,7 +124,7 @@ export default class SchoolController {
         }).then(res => {
             ctx.body = res
         }).catch(() => {
-            throw new Error('update course error')
+            throw new ApiError(ApiErrorNames.UPDATE_SCHOOL_ERROR)
         })
     }
     // get
@@ -137,7 +135,7 @@ export default class SchoolController {
                 ctx.body = true
                 return res
             }).catch(() => {
-                throw new Error('delete course error')
+                throw new ApiError(ApiErrorNames.DELETE_SCHOOL_ERROR)
             })
     }
     /**
@@ -162,22 +160,19 @@ export default class SchoolController {
             .then(res => {
                 ctx.body = res
             }).catch(() => {
-                throw new Error('get major by id error')
+                throw new ApiError(ApiErrorNames.SCHOOL_NOT_EXIST)
             })
         return true
     }
     // post
-    async findOrCreateMajorById(ctx) {
+    async addMajor(ctx) {
         let query = ctx.request.body
-        await Dao.findOrCreate(major, {
+        await Dao.create(major, {
             query
-        }).spread((model, res) => {
-            if (res) {
-                ctx.body = model.get({
-                    plain: true
-                })
-                return true
-            } else throw new Error('create major error')
+        }).then(res => {
+            ctx.body = res
+        }).catch(err => {
+            throw new ApiError(ApiErrorNames.ADD_SCHOOL_ERROR)
         })
     }
     // post
@@ -191,7 +186,7 @@ export default class SchoolController {
         }).then(res => {
             ctx.body = res
         }).catch(() => {
-            throw new Error('update major error')
+            throw new ApiError(ApiErrorNames.UPDATE_SCHOOL_ERROR)
         })
     }
     // get
@@ -202,7 +197,7 @@ export default class SchoolController {
                 ctx.body = true
                 return res
             }).catch(() => {
-                throw new Error('delete major error')
+                throw new ApiError(ApiErrorNames.DELETE_SCHOOL_ERROR)
             })
     }
 }
