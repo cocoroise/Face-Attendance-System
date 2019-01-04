@@ -18,7 +18,8 @@ module.exports = {
     'space-before-function-paren': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ?
-      2 :
-      0
+      2 : 0,
+    // 不遵守驼峰命名
+    'camelcase': 0
   }
 }

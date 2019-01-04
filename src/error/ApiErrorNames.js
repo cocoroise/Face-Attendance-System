@@ -15,7 +15,9 @@ var ApiErrorNames = {
   SCHOOL_NOT_EXIST: 'SchoolNotExist',
   ADD_SCHOOL_ERROR: 'addSchoolError',
   UPDATE_SCHOOL_ERROR: 'updateSchoolError',
-  DELETE_SCHOOL_ERROR: 'deleteSchoolError'
+  DELETE_SCHOOL_ERROR: 'deleteSchoolError',
+  // fetch
+  FETCH_ERROR: 'fetctError'
 }
 
 // API错误名称对应的错误信息
@@ -75,6 +77,11 @@ errorMap.set(ApiErrorNames.UPDATE_SCHOOL_ERROR, {
 errorMap.set(ApiErrorNames.DELETE_SCHOOL_ERROR, {
   code: 112,
   message: '删除SCHOOL失败'
+})
+// FETCH
+errorMap.set(ApiErrorNames.FETCH_ERROR, {
+  code: 113,
+  message: 'axios有问题，请检查'
 })
 
 // 根据错误名称获取错误信息

@@ -1,5 +1,5 @@
 Arguments: 
-  D:\nodejs\node.exe D:\nodejs\node_global\node_modules\yarn\bin\yarn.js
+  D:\nodejs\node.exe D:\nodejs\node_global\node_modules\yarn\bin\yarn.js add axios
 
 PATH: 
   C:\Program Files\Microsoft MPI\Bin\;C:\ProgramData\Oracle\Java\javapath;D:\java\bin;C:\Program Files\Java\jre-9.0.4;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\ProgramData\Lenovo\ReadyApps;C:\MinGW\bin;D:\nodejs\;D:\nodejs\node_global;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\tomcat\lib;c:\tomcat\bin;D:\maven\apache-maven-3.5.3\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Users\xc\Downloads\Software\mysql\bin;C:\Users\xc\Anaconda3;C:\Users\xc\Anaconda3\Scripts;C:\Users\xc\Anaconda3\Library\bin;C:\Users\xc\AppData\Local\Programs\Python\Python35\Scripts\;C:\Users\xc\AppData\Local\Programs\Python\Python35\;C:\Users\xc\AppData\Local\Programs\Fiddler;C:\Users\xc\AppData\Local\Programs\Git\cmd;C:\Users\xc\AppData\Roaming\npm;C:\Users\xc\AppData\Local\Programs\Microsoft VS Code\bin
@@ -14,7 +14,9 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: UNKNOWN: unknown error, copyfile 'C:\Users\xc\AppData\Local\Yarn\Cache\v1\npm-flatmap-stream-0.1.2-b1da359a93f24f6d96e46f948552d997e3c2863d\test\data.js' -> 'C:\Users\xc\Documents\代码区\前端\毕设\Face-Attendance-System\node_modules\flatmap-stream\test\data.js'
+  Error: getaddrinfo ENOTFOUND registry.npm.taobao.org registry.npm.taobao.org:443
+      at errnoException (dns.js:50:10)
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:92:26)
 
 npm manifest: 
   {
@@ -1318,8 +1320,10 @@ Lockfile:
     resolved "http://registry.npm.taobao.org/contains-path/download/contains-path-0.1.0.tgz#fe8cf184ff6670b6baef01a9d4861a5cbec4120a"
   
   content-disposition@~0.5.2:
-    version "0.5.2"
-    resolved "http://registry.npm.taobao.org/content-disposition/download/content-disposition-0.5.2.tgz#0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4"
+    version "0.5.3"
+    resolved "http://registry.npm.taobao.org/content-disposition/download/content-disposition-0.5.3.tgz#e130caf7e7279087c5616c2007d0485698984fbd"
+    dependencies:
+      safe-buffer "5.1.2"
   
   content-type@^1.0.4:
     version "1.0.4"
