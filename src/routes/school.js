@@ -3,20 +3,20 @@ export default async router => {
     router
         // college
         .get('/api/allCollege', schoolController.getAllCollege)
-        .get('/api/getCollege', schoolController.getCollegeById)
-        .post('/api/addCollege', schoolController.addCollege)
-        .post('/api/updateCollege', schoolController.updateCollege)
-        .get('/api/deleteCollege', schoolController.deleteCollege)
+        .get('/api/college', schoolController.getCollegeById)
+        .post('/api/college', schoolController.addCollege)
+        .patch('/api/college', schoolController.updateCollege)
+        .delete('/api/college', schoolController.deleteCollege)
         // course
         .get('/api/allCourse', schoolController.getAllCourse)
-        .get('/api/getCourse', schoolController.getCourseById)
-        .post('/api/addCourse', schoolController.addCourse)
-        .post('/api/updateCourse', schoolController.updateCourse)
-        .get('/api/deleteCourse', schoolController.deleteCourse)
+        .get('/api/course', schoolController.getCourseById)
+        .post('/api/course', schoolController.addCourse)
+        .patch('/api/course', schoolController.updateCourse)
+        .delete('/api/course', schoolController.deleteCourse)
         // major
         .get('/api/allMajor', schoolController.getAllMajor)
-        .get('/api/getMajor', schoolController.getMajorById)
-        .post('/api/addMajor', schoolController.addMajor)
-        .post('/api/updateMajor', schoolController.updateMajor)
-        .get('/api/deleteMajor', schoolController.deleteMajor)
+        .get('/api/major', schoolController.getMajorById)
+        .post('/api/major', schoolController.addMajor)
+        .patch('/api/major', schoolController.updateMajor)
+        .delete('/api/major', schoolController.deleteMajor)
 }

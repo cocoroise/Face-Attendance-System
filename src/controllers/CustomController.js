@@ -36,8 +36,8 @@ class CustomController {
             user_id
         } = ctx.query
         await Dao.findAll(user, {
-                user_id: user_id
-            })
+            user_id: user_id
+        })
             .then(res => {
                 ctx.body = res
             })
@@ -48,7 +48,6 @@ class CustomController {
     // post
     async addUser(ctx) {
         let query = ctx.request.body
-        console.log(query, '11111111111111')
         await Dao.create(user, query)
             .then(res => {
                 ctx.body = res
@@ -58,15 +57,15 @@ class CustomController {
             })
         return true
     }
-    // post
+    // patch
     async updateUser(ctx) {
         let query = ctx.request.body
         let {
             user_id
         } = query
         await Dao.update(user, query, {
-                user_id: user_id
-            })
+            user_id: user_id
+        })
             .then(res => {
                 ctx.body = res
             })
@@ -75,7 +74,7 @@ class CustomController {
             })
         return true
     }
-    // get
+    // delete
     async deleteUser(ctx) {
         let query = ctx.query
         await Dao.destroy(user, query)
@@ -108,11 +107,11 @@ class CustomController {
             name
         } = ctx.query
         await Dao.findAll(teacher, {
-                // 模糊搜索
-                name: {
-                    [Op.like]: `%${name}%`
-                }
-            })
+            // 模糊搜索
+            name: {
+                [Op.like]: `%${name}%`
+            }
+        })
             .then(res => {
                 ctx.body = res
             })
@@ -131,15 +130,15 @@ class CustomController {
         })
     }
 
-    // post
+    // patch
     async updateTeacher(ctx) {
         let query = ctx.request.body
         let {
             phone
         } = query
         await Dao.update(teacher, query, {
-                phone: phone
-            })
+            phone: phone
+        })
             .then(res => {
                 ctx.body = res
             })
@@ -147,7 +146,7 @@ class CustomController {
                 throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
             })
     }
-    // get
+    // delete
     async deleteTeacher(ctx) {
         let query = ctx.query
         await Dao.destroy(teacher, query)
@@ -179,10 +178,10 @@ class CustomController {
             name
         } = ctx.query
         await Dao.findAll(student, {
-                name: {
-                    [Op.like]: `%${name}%`
-                }
-            })
+            name: {
+                [Op.like]: `%${name}%`
+            }
+        })
             .then(res => {
                 ctx.body = res
             })
@@ -191,32 +190,48 @@ class CustomController {
             })
         return true
     }
+    // get
+    async getStudentById(ctx) {
+        let {
+            id
+        } = ctx.query
+        await Dao.findAll(student, {
+            stu_id: id
+        })
+            .then(res => {
+                ctx.body = res
+            })
+            .catch((err) => {
+                throw new Error('get student by id error' + err)
+            })
+        return true
+    }
     // post
     async addStudent(ctx) {
         let query = ctx.request.body
         await Dao.create(student, query).then(res => {
             ctx.body = res
-        }).catch(err => {
+        }).catch(() => {
             throw new ApiError(ApiErrorNames.ADD_CUSTOM_ERROR)
         })
     }
-    // post
+    // patch
     async updateStudent(ctx) {
         let query = ctx.request.body
         let {
             phone
         } = query
         await Dao.update(student, query, {
-                phone: phone
-            })
+            phone: phone
+        })
             .then(res => {
                 ctx.body = res
             })
-            .catch((err) => {
+            .catch(() => {
                 throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
             })
     }
-    // get
+    // delete
     async deleteStudent(ctx) {
         let query = ctx.query
         await Dao.destroy(student, query)
@@ -224,7 +239,7 @@ class CustomController {
                 ctx.body = true
                 return res
             })
-            .catch((err) => {
+            .catch(() => {
                 throw new ApiError(ApiErrorNames.DELETE_CUSTOM_ERROR)
             })
     }

@@ -1,10 +1,9 @@
 {
-  "name": "ocean",
-  "version": "0.0.1",
-  "author": "twj <474481263@qq.com>",
+  "name": "attendance",
+  "version": "1.0.0",
   "description": "",
   "repository": {
-    "url": "https://github.com/mrtanweijie/ocean.git",
+    "url": "https://github.com/Usern2me/Face-Attendance-System/blob/master/package.json",
     "type": "git"
   },
   "scripts": {
@@ -15,7 +14,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "babel": "^6.23.0",
     "github-markdown-css": "^2.4.1",
     "jest": "^23.6.0",
     "jsonwebtoken": "^7.1.9",
@@ -40,6 +38,7 @@
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.1.1",

@@ -35,8 +35,8 @@ class ClassController {
             class_id
         } = ctx.query
         await Dao.findAll(_class, {
-                class_id: class_id
-            })
+            class_id: class_id
+        })
             .then(res => {
                 ctx.body = res
             }).catch(() => {
@@ -97,8 +97,8 @@ class ClassController {
             classroom_id
         } = ctx.query
         await Dao.findAll(classroom, {
-                classroom_id: classroom_id
-            })
+            classroom_id: classroom_id
+        })
             .then(res => {
                 ctx.body = res
             }).catch(() => {
@@ -159,8 +159,8 @@ class ClassController {
             classtable_id
         } = ctx.query
         await Dao.findAll(classtable, {
-                classtable_id: classtable_id
-            })
+            classtable_id: classtable_id
+        })
             .then(res => {
                 ctx.body = res
             }).catch(() => {
@@ -175,7 +175,7 @@ class ClassController {
             query
         }).then(res => {
             ctx.body = res
-        }).catch( => {
+        }).catch(() => {
             throw new ApiError(ApiErrorNames.ADD_CLASS_ERROR)
         })
     }
