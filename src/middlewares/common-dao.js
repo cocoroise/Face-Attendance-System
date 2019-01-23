@@ -3,7 +3,8 @@
  * 统一处理处理数据库的方法
  */
 class CommonDao {
-  findOne(model, condition, attributes = []) {
+  // include嵌套
+  findOne(model, condition, attributes = [], include) {
     let query = {
       where: condition,
       raw: true
@@ -11,10 +12,13 @@ class CommonDao {
     if (attributes && attributes.length > 0) {
       query['attributes'] = attributes
     }
+    if (include && Object.keys(include).length !== 0) {
+      query['include'] = include
+    }
     return model.findOne(query)
   }
 
-  findAll(model, condition, attributes = [], offset = 0, limit = 0, order = '') {
+  findAll(model, condition, attributes = [], include, offset = 0, limit = 0, order = '') {
     let query = {
       where: condition,
       offset: offset,
@@ -28,6 +32,9 @@ class CommonDao {
     }
     if (attributes && attributes.length > 0) {
       query['attributes'] = attributes
+    }
+    if (include && Object.keys(include).length !== 0) {
+      query['include'] = include
     }
     return model.findAll(query)
   }
@@ -84,7 +91,6 @@ class CommonDao {
     }
     return model.destroy(query)
   }
-
 }
 export default new CommonDao()
 // module.exports = {

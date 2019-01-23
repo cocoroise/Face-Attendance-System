@@ -4,27 +4,29 @@
 import mysqlConn from '../config/db-init'
 import sequelize from 'sequelize'
 
-const student = mysqlConn.define('student', {
+const student = mysqlConn.define(
+  'student',
+  {
     stu_id: {
-        type: sequelize.INTEGER(11),
-        primaryKey: true,
-        allowNull: false
+      type: sequelize.INTEGER(11),
+      primaryKey: true,
+      allowNull: false
     },
     uid: {
-        type: sequelize.INTEGER(11),
-        allowNull: false
+      type: sequelize.INTEGER(11),
+      allowNull: false
     },
     name: {
-        type: sequelize.STRING(45),
-        allowNull: false
+      type: sequelize.STRING(45),
+      allowNull: false
     },
     age: {
-        type: sequelize.INTEGER(11),
-        allowNull: false
+      type: sequelize.INTEGER(11),
+      allowNull: false
     },
     gender: {
-        type: sequelize.STRING(15),
-        allowNull: false
+      type: sequelize.STRING(15),
+      allowNull: false
     },
     major_id: sequelize.INTEGER(11),
     class_id: sequelize.INTEGER(11),
@@ -33,9 +35,11 @@ const student = mysqlConn.define('student', {
     email: sequelize.STRING(45),
     address: sequelize.STRING(45),
     nation: sequelize.STRING(45)
-}, {
-        timestamps: false,
-        freezeTableName: true,
-})
+  },
+  {
+    timestamps: false,
+    freezeTableName: true
+  }
+)
 
 export default student
