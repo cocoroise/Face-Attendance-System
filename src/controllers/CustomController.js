@@ -173,6 +173,7 @@ class CustomController {
     if (id) {
       query_one = `and s.stu_id=${id}`
     }
+    // 纯sql嵌套查询
     let query_str = `select s.*,m.major_name,c.college_name,u.password,class.class_name
     from student as s ,major_view as m,college_view as c,user_view as u,class_view as class
     where s.uid=u.user_id 
@@ -210,25 +211,37 @@ class CustomController {
   // post
   async addStudent(ctx) {
     let query = ctx.request.body
+    console.log('query---------------->', query)
+    // 插入学生之前要先插入用户表
+    await Dao.create(user, { password: query.password, type: 2 })
+      .then(res => {
+        Object.assign(query, { uid: res.user_id })
+      })
+      .catch(err => {
+        console.log('error------>', err)
+      })
+    // 用拿到的user表的user_id插入一条学生记录
     await Dao.create(student, query)
       .then(res => {
         ctx.body = res
       })
-      .catch(() => {
+      .catch(err => {
+        console.log('err------->', err)
         throw new ApiError(ApiErrorNames.ADD_CUSTOM_ERROR)
       })
   }
   // patch
   async updateStudent(ctx) {
     let query = ctx.request.body
-    let { phone } = query
+    let { stu_id } = query
     await Dao.update(student, query, {
-      phone: phone
+      stu_id: stu_id
     })
       .then(res => {
         ctx.body = res
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log('-----------student err-------', err)
         throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
       })
   }

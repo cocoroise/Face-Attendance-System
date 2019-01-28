@@ -10,11 +10,10 @@ const student = mysqlConn.define(
     stu_id: {
       type: sequelize.INTEGER(11),
       primaryKey: true,
-      allowNull: false
+      autoIncrement: true,
     },
     uid: {
-      type: sequelize.INTEGER(11),
-      allowNull: false
+      type: sequelize.INTEGER(11)
     },
     name: {
       type: sequelize.STRING(45),

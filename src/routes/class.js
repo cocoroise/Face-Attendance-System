@@ -3,20 +3,19 @@ export default async router => {
   router
     // class班级
     .get('/api/allClass', classController.getAllClass)
-    .get('/api/getClass', classController.getClassById)
+    .get('/api/class', classController.getClassById)
     .post('/api/addClass', classController.addClass)
-    .post('/api/updateClass', classController.updateClass)
-    .get('/api/deleteClass', classController.deleteClass)
+    .patch('/api/updateClass', classController.updateClass)
+    .delete('/api/deleteClass', classController.deleteClass)
     // classtable上课表
-    .get('/api/allClasstable', classController.getAllClasstable)
-    .get('/api/getClasstable', classController.getClasstableById)
-    .post('/api/addClasstable', classController.addClasstable)
-    .post('/api/updateClasstable', classController.updateClasstable)
-    .get('/api/deleteClasstable', classController.deleteClasstable)
+    .get('/api/classtable', classController.getClasstableById)
+    .post('/api/classtable', classController.addClasstable)
+    .patch('/api/classtable', classController.updateClasstable)
+    .delete('/api/classtable', classController.deleteClasstable)
     // classroom课室
     .get('/api/allClassroom', classController.getAllClassroom)
-    .get('/api/getClassroom', classController.getClassroomById)
-    .post('/api/addClassroom', classController.addClassroom)
-    .post('/api/updateClassroom', classController.updateClassroom)
-    .get('/api/deleteClassroom', classController.deleteClassroom)
+    .get('/api/classroom', classController.getClassroomById)
+    .post('/api/classroom', classController.addClassroom)
+    .delete('/api/classroom', classController.updateClassroom)
+    .patch('/api/classroom', classController.deleteClassroom)
 }

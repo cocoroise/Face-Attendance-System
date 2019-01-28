@@ -47,12 +47,14 @@ class SchoolController {
     })
 
     ctx.body = await this.whriteClass(result)
+    // ctx.body=result
   }
   // 写入班级数组
   async whriteClass(result) {
-    let rrr = []
+    // let rrr = []
     let promise_res = result.map(async v => {
       if (v.children.length !== 0) {
+        // 异步循环数组，请求每个专业的班级信息
         for (let i of v.children) {
           let classResult = []
           await ClassController.getClassById({ major_id: i.value }).then(res => {
@@ -63,13 +65,14 @@ class SchoolController {
           })
           let tempMajor = i
           tempMajor.children = classResult
-          v.children = tempMajor
-          rrr.push(v)
+          v.children[i] = tempMajor
+          // rrr.push(v)
         }
       }
+      return v
     })
     // 重点：async map返回的是一个promise 数组!!!
-    await Promise.all(promise_res)
+    let rrr=await Promise.all(promise_res)
     return rrr
   }
   /**

@@ -10,7 +10,7 @@ const users = mysqlConn.define(
     user_id: {
       type: sequelize.INTEGER(11),
       primaryKey: true,
-      allowNull: false
+      autoIncrement: true
     },
     password: {
       type: sequelize.STRING(45),

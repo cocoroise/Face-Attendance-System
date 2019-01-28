@@ -155,20 +155,8 @@ class ClassController {
    * classtable用接口
    */
   // get
-  async getAllClasstable(ctx) {
-    const res = await Dao.findAll(classtable).then(res => {
-      ctx.body = {
-        res
-      }
-    })
-    return res
-  }
-  // get
   async getClasstableById(ctx) {
-    let { classtable_id } = ctx.query
-    await Dao.findAll(classtable, {
-      classtable_id: classtable_id
-    })
+    await Dao.findAll(classtable, ctx.query)
       .then(res => {
         ctx.body = res
       })
