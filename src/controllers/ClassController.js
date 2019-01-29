@@ -8,7 +8,8 @@ import _class from '../models/class'
 import classroom from '../models/classroom'
 import classtable from '../models/classtable'
 import Dao from '../middlewares/common-dao'
-
+import Sequelize from 'sequelize'
+import seqInstance from '../config/db-init'
 import ApiError from '../error/ApiError'
 import ApiErrorNames from '../error/ApiErrorNames'
 
@@ -156,11 +157,18 @@ class ClassController {
    */
   // get
   async getClasstableById(ctx) {
-    await Dao.findAll(classtable, ctx.query)
+    let query = ''
+    if (ctx.query.class_id) {
+      query = `where class_id=${ctx.query.class_id}`
+    }
+    let sql_str = `SELECT * FROM attendance.classtable_view ${query} order by time_weekend,time_hour;`
+    await seqInstance
+      .query(sql_str, { raw: true, type: Sequelize.QueryTypes.SELECT })
       .then(res => {
         ctx.body = res
       })
-      .catch(() => {
+      .catch(err => {
+        console.log('err-----', err)
         throw new ApiError(ApiErrorNames.CLASS_NOT_EXIST)
       })
     return true
