@@ -15,14 +15,24 @@ const app = new Koa()
 app.keys = ['hospital-cookie-auth']
 app.context.config = config
 
-app.use(cors({
-  maxAge: 7 * 24 * 60 * 60,
-  credentials: true,
-  methods: 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE',
-  headers: 'Content-Type, Accept, Authorization'
-}))
+app
+  .use(
+    cors({
+      maxAge: 7 * 24 * 60 * 60,
+      credentials: true,
+      methods: 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE',
+      headers:
+        'Content-Type,Origin,X-Requested-With, Accept, Authorization,Access-Control-Allow-Origin'
+    })
+  )
   .use(logger())
-  .use(bodyParser()) // 解析body的参数的中间件
+  // .use(bodyParser())
+  .use(
+    bodyParser({
+      jsonLimit: '9mb', // 控制body的parse转换大小 default 1mb
+      formLimit: '4096kb' //  控制你post的大小  default 56kb
+    })
+  )
   .use(convert(session(app)))
   .use(koaStatic(path.join(__dirname, '/public')))
   .use(respondFormatter('^/')) // 格式化输出所有以/开头的

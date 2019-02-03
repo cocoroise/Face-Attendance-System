@@ -5,25 +5,18 @@ import ApiErrorNames from '../error/ApiErrorNames'
 
 // 默认请求头
 const defaultHeaders = {
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type': 'application/x-www-form-urlencoded' // 默认post提交方式
+  'X-Requested-With': 'XMLHttpRequest',
+  'Content-Type': 'application/x-www-form-urlencoded', // 默认post提交方式
+  'Access-Control-Allow-Origin': '*'
 }
 export default function fetch(url, params, method, data, _headers) {
-    let header = Object.assign({}, defaultHeaders, _headers)
-    let config = {
-        method: method || 'get',
-        url: url,
-        params: params || {},
-        data: data || {},
-        header: header
-    }
-    axios(config)
-        .then(res => {
-            return res
-        })
-        .catch(err => {
-            console.log('fetch err->>>>>>', err)
-            throw new ApiError(ApiErrorNames.FETCH_ERROR)
-            // return Promise.reject(err.response)
-        })
+  let header = Object.assign({}, defaultHeaders, _headers)
+  let config = {
+    method: method || 'get',
+    url: url,
+    params: params || {},
+    data: data || {},
+    header: header
+  }
+  return axios(config)
 }
