@@ -87,19 +87,23 @@ class CustomController {
   /**
    * 教师用接口
    */
-  // get
+  // get 输入id 没有就是搜索全部
   async getAllTeachers(ctx) {
+    let {
+      query: { teacher_id }
+    } = ctx
+    let query_one = ''
+    if (teacher_id) {
+      query_one = `where teacher_id=${teacher_id}`
+    }
     let sql_query = `
-        select * from teacher 
-        left join user_view on teacher.uid=user_view.user_id
-        left join college_view on college_view.college_id=teacher.college_id
+        SELECT * FROM attendance.teacher_view
+        ${query_one}
         `
     const res = await seqInstance
-      .query(sql_query)
+      .query(sql_query, { raw: true, type: Sequelize.QueryTypes.SELECT })
       .then(res => {
-        ctx.body = {
-          res
-        }
+        ctx.body = res
       })
       .catch(() => {
         throw new ApiError(ApiErrorNames.CUSTOM_NOT_EXIST)
@@ -138,9 +142,9 @@ class CustomController {
   // patch
   async updateTeacher(ctx) {
     let query = ctx.request.body
-    let { phone } = query
+    const { id } = query
     await Dao.update(teacher, query, {
-      phone: phone
+      teacher_id: id
     })
       .then(res => {
         ctx.body = res
@@ -187,7 +191,7 @@ class CustomController {
       .then(res => {
         ctx.body = res
       })
-      .catch(err => {
+      .catch(() => {
         throw new ApiError(ApiErrorNames.CUSTOM_NOT_EXIST)
       })
     return res
@@ -211,7 +215,6 @@ class CustomController {
   // post
   async addStudent(ctx) {
     let query = ctx.request.body
-    console.log('query---------------->', query)
     // 插入学生之前要先插入用户表
     await Dao.create(user, { password: query.password, type: 2 })
       .then(res => {
@@ -241,7 +244,6 @@ class CustomController {
         ctx.body = res
       })
       .catch((err) => {
-        console.log('-----------student err-------', err)
         throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
       })
   }

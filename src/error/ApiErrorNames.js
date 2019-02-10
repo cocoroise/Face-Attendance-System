@@ -16,6 +16,9 @@ var ApiErrorNames = {
   ADD_SCHOOL_ERROR: 'addSchoolError',
   UPDATE_SCHOOL_ERROR: 'updateSchoolError',
   DELETE_SCHOOL_ERROR: 'deleteSchoolError',
+  // attendance
+  FETCH_ATTENDANCE_ERROR: 'fetchAttendanceError',
+  UPDATE_ATTENDANCE_ERROR: 'updateAttendanceError',
   // fetch
   FETCH_ERROR: 'fetctError'
 }
@@ -77,6 +80,14 @@ errorMap.set(ApiErrorNames.UPDATE_SCHOOL_ERROR, {
 errorMap.set(ApiErrorNames.DELETE_SCHOOL_ERROR, {
   code: 112,
   message: '删除SCHOOL失败'
+})
+errorMap.set(ApiErrorNames.FETCH_ATTENDANCE_ERROR, {
+  code: 113,
+  message: '获取考勤信息失败'
+})
+errorMap.set(ApiErrorNames.ADD_ATTENDANCE_ERROR, {
+  code: 114,
+  message: '写入考勤信息失败'
 })
 // FETCH
 errorMap.set(ApiErrorNames.FETCH_ERROR, {

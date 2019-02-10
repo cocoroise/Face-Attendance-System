@@ -8,8 +8,8 @@ export default async router => {
     .patch('/api/user', customController.updateUser)
     .delete('/api/user', customController.deleteUser)
     // 教师
-    .get('/api/allTeacher', customController.getAllTeachers)
-    .get('/api/teacher', customController.getTeacherByName)
+    .get('/api/teacher', customController.getAllTeachers)
+    .get('/api/getTeacherByName', customController.getTeacherByName)
     .post('/api/teacher', customController.addTeacher)
     .patch('/api/teacher', customController.updateTeacher)
     .delete('/api/teacher', customController.deleteTeacher)

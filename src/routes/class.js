@@ -4,9 +4,9 @@ export default async router => {
     // class班级
     .get('/api/allClass', classController.getAllClass)
     .get('/api/class', classController.getClassById)
-    .post('/api/addClass', classController.addClass)
-    .patch('/api/updateClass', classController.updateClass)
-    .delete('/api/deleteClass', classController.deleteClass)
+    .post('/api/class', classController.addClass)
+    .patch('/api/class', classController.updateClass)
+    .delete('/api/class', classController.deleteClass)
     // classtable上课表
     .get('/api/classtable', classController.getClasstableById)
     .post('/api/classtable', classController.addClasstable)
