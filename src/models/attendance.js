@@ -9,7 +9,8 @@ const attendance = mysqlConn.define(
   {
     attendance_id: {
       type: sequelize.INTEGER(11),
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     date: {
       type: sequelize.DATE(45),

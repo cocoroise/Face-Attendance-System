@@ -1,7 +1,7 @@
 {
   "name": "attendance",
   "version": "1.0.0",
-  "description": "",
+  "description": "this is description",
   "repository": {
     "url": "https://github.com/Usern2me/Face-Attendance-System/blob/master/package.json",
     "type": "git"
@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "github-markdown-css": "^2.4.1",
+    "hoek": "^6.1.2",
     "jest": "^23.6.0",
     "jsonwebtoken": "^7.1.9",
     "knex": "^0.15.2",
@@ -59,7 +60,8 @@
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-standard": "^2.0.1",
     "nodemon": "^1.11.0",
-    "ora": "^0.3.0"
+    "ora": "^0.3.0",
+    "socket.io": "^2.2.0"
   },
   "license": "Apache",
   "config": {

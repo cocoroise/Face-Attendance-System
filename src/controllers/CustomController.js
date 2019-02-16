@@ -142,9 +142,9 @@ class CustomController {
   // patch
   async updateTeacher(ctx) {
     let query = ctx.request.body
-    const { id } = query
+    const { teacher_id } = query
     await Dao.update(teacher, query, {
-      teacher_id: id
+      teacher_id: teacher_id
     })
       .then(res => {
         ctx.body = res
