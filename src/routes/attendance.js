@@ -7,6 +7,9 @@ export default async router => {
         .post('/api/addStuAttendance', attendanceController.addStuAttendance)
         .get('/api/attendanceOfteacher', attendanceController.getAttendanceOfTeacher)
         .get('/api/lineChartDataOfTeacher', attendanceController.lineChartDataOfTeacher)
+        .get('/api/lineChartOfTeacher', attendanceController.lineChartOfTeacher)
         .get('/api/getStuAttendanceList', attendanceController.getStuAttendanceList)
         .get('/api/getStuAttendance', attendanceController.getStuAttendance)
+        .get('/api/getLineChartOfStudent', attendanceController.getLineChartOfStudent)
+        .get('/api/getCalendarOfStudent', attendanceController.getCalendarOfStudent)
 }
