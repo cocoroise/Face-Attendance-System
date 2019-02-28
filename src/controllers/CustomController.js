@@ -12,6 +12,7 @@ import seqInstance from '../config/db-init'
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
+import { readImg } from '../utils/tools'
 import ApiError from '../error/ApiError'
 import ApiErrorNames from '../error/ApiErrorNames'
 
@@ -243,10 +244,28 @@ class CustomController {
       .then(res => {
         ctx.body = res
       })
-      .catch((err) => {
+      .catch(err => {
         throw new ApiError(ApiErrorNames.UPDATE_CUSTOM_ERROR)
       })
   }
+  // get 获取头像 传stu_id
+  async getUserAvator(ctx) {
+    const { stu_id } = ctx.request.body
+    const fileName = `${stu_id}-avator.png`
+    const res = await readImg(fileName).catch(e => {
+      throw new ApiError(ApiErrorNames.IMG_DOT_EXIST)
+    })
+    if (res) {
+      ctx.type = 'application/octet-stream'
+      ctx.body = res
+    }
+  }
+  // get
+  async uploadAvator(ctx) {
+    ctx.body = '修改成功'
+    return true
+  }
+
   // delete
   async deleteStudent(ctx) {
     let query = ctx.query

@@ -24,7 +24,7 @@ app
       headers:
         'Content-Type,Origin,X-Requested-With, Accept, Authorization,Access-Control-Allow-Origin'
     })
-  )
+)
   .use(logger())
   // .use(bodyParser())
   .use(

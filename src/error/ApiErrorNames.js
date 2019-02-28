@@ -20,7 +20,8 @@ var ApiErrorNames = {
   FETCH_ATTENDANCE_ERROR: 'fetchAttendanceError',
   UPDATE_ATTENDANCE_ERROR: 'updateAttendanceError',
   // fetch
-  FETCH_ERROR: 'fetctError'
+  FETCH_ERROR: 'fetctError',
+  IMG_DOT_EXIST:'imgNotExist',
 }
 
 // API错误名称对应的错误信息
@@ -93,6 +94,11 @@ errorMap.set(ApiErrorNames.ADD_ATTENDANCE_ERROR, {
 errorMap.set(ApiErrorNames.FETCH_ERROR, {
   code: 113,
   message: 'axios有问题，请检查'
+})
+// 图片不存在
+errorMap.set(ApiErrorNames.IMG_DOT_EXIST, {
+  code: 114,
+  message: '图片不存在'
 })
 
 // 根据错误名称获取错误信息

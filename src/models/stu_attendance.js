@@ -25,7 +25,7 @@ const stu_attendance = mysqlConn.define(
       type: sequelize.TIME(2),
       allowNull: false
     },
-    date: sequelize.DATE(45),
+    date: sequelize.STRING(60),
     status: sequelize.INTEGER(10),
     face: sequelize.INTEGER(10)
   },

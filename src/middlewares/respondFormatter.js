@@ -4,10 +4,12 @@ import ApiError from '../error/ApiError'
  */
 var respondFormatter = ctx => {
   if (ctx.body) {
-    ctx.body = {
-      code: 0,
-      message: '默认的success消息',
-      data: ctx.body
+    if (!Buffer.isBuffer(ctx.body)) {
+      ctx.body = {
+        code: 0,
+        message: '默认的success消息',
+        data: ctx.body
+      }
     }
   } else {
     ctx.body = {

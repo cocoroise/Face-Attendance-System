@@ -42,22 +42,20 @@ class AttendanceController {
   // get 查询班级考勤信息 输入班级id
   async getAttendance(ctx) {
     let {
-      query: { id }
-    } = ctx.query
+      query: { attendance_id }
+    } = ctx
     let query_one = ''
-    if (id) {
-      query_one = `and class.class_id=${id}`
+    if (attendance_id) {
+      query_one = `where attendance_id=${attendance_id}`
     }
     let sql_query = `
         SELECT * FROM attendance.attendance_view
         ${query_one}
         `
     const res = await seqInstance
-      .query(sql_query)
+      .query(sql_query, { raw: true, type: Sequelize.QueryTypes.SELECT })
       .then(res => {
-        ctx.body = {
-          res
-        }
+        ctx.body = res
       })
       .catch(() => {
         throw new ApiError(ApiErrorNames.FETCH_ATTENDANCE_ERROR)
@@ -73,6 +71,20 @@ class AttendanceController {
       })
       .catch(err => {
         console.log('add attendance----->', err)
+        throw new ApiError(ApiErrorNames.ADD_ATTENDANCE_ERROR)
+      })
+    return res
+  }
+  // patch -->update
+  async updateAttendance(ctx) {
+    let param = ctx.request.body
+    const {duration, attendance_id} = param
+    const res = await Dao.update(attendance, {duration}, {attendance_id})
+      .then(res => {
+        ctx.body = res
+      })
+      .catch(err => {
+        console.log('update attendance----->', err)
         throw new ApiError(ApiErrorNames.ADD_ATTENDANCE_ERROR)
       })
     return res
@@ -151,7 +163,6 @@ class AttendanceController {
     (select class_id from attendance_view 
       where attendance_view.attendance_id=${attendance_id});
     `
-
     let percent = await Dao.findOne(attendance, { attendance_id }).then(res => {
       return Number(res.attendance_percentage).toFixed(2)
     })
@@ -179,6 +190,17 @@ class AttendanceController {
       })
     return res
   }
+  // 获取学生考勤情况
+  async getStuAttendanceStatus(ctx) {
+    const { stu_id, attendance_id, date } = ctx.query
+    await Dao.findOne(stu_attendance, { stu_id, attendance_id, date }).then(res => {
+      ctx.body = res
+    }).catch(err => {
+      console.log('err------->', err)
+      throw new ApiError('getStuAttendanceStatus get an error')
+    })
+  }
+
   // 学生登陆时获取当天考勤信息 前后20分钟的考勤信息
   async getStuAttendance(ctx) {
     const { time, date, stu_id } = ctx.request.query

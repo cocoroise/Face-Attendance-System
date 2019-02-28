@@ -1,4 +1,20 @@
 import customController from '../controllers/CustomController'
+const multer = require('koa-multer')
+const storage = multer.diskStorage({
+  // 文件保存路径
+  destination: function(req, file, cb) {
+    cb(null, 'src/public/')
+  },
+  // 修改文件名称
+  filename: function(req, file, cb) {
+    let originName = file.originalname
+    let fileType = file.mimetype.split('/')[1]
+    cb(null, `${originName}.${fileType}`)
+  }
+})
+// 拦截form-data类的文件
+const upload = multer({ storage: storage })
+
 export default async router => {
   router
     // 用户
@@ -19,4 +35,6 @@ export default async router => {
     .post('/api/student', customController.addStudent)
     .patch('/api/student', customController.updateStudent)
     .delete('/api/student', customController.deleteStudent)
+    .post('/api/getUserAvator', customController.getUserAvator)
+    .post('/api/uploadAvator', upload.single('file'), customController.uploadAvator)
 }

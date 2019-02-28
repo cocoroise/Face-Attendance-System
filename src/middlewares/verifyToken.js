@@ -10,6 +10,7 @@ export default async function (ctx, next) {
   let tokenContent
   try {
     tokenContent = await jwt.verify(token, ctx.config.jwt.cert)
+    console.log('tokenContent--->',tokenContent)
   } catch (err) {
     if (err.name === 'TokenExpiredError') {
       ctx.throw(401, 'token expried')

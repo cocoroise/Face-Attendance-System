@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 // 数组去重
 function uniqueArr(arr) {
   let newArr = []
@@ -30,4 +32,27 @@ function uniqueObjArr(arr) {
   })
   return arr
 }
-export { uniqueArr, uniqueObjArr }
+
+// 读取文件
+function readImg(filePath) {
+  let data = []
+  const fileStr = `src/public/${filePath}`
+  return new Promise((resolve, reject) => {
+    fs.exists(fileStr, exist => {
+      if (exist) {
+        const readerStream = fs.createReadStream(`src/public/${filePath}`)
+        readerStream.on('data', chunk => {
+          data.push(chunk)
+        })
+        readerStream.on('end', () => {
+          const finalData = Buffer.concat(data)
+          resolve(finalData)
+        })
+      } else {
+        reject('file not exist')
+      }
+    })
+  })
+}
+
+export { uniqueArr, uniqueObjArr, readImg }
