@@ -78,8 +78,8 @@ class AttendanceController {
   // patch -->update
   async updateAttendance(ctx) {
     let param = ctx.request.body
-    const {duration, attendance_id} = param
-    const res = await Dao.update(attendance, {duration}, {attendance_id})
+    const { duration, attendance_id } = param
+    const res = await Dao.update(attendance, { duration }, { attendance_id })
       .then(res => {
         ctx.body = res
       })
@@ -193,12 +193,14 @@ class AttendanceController {
   // 获取学生考勤情况
   async getStuAttendanceStatus(ctx) {
     const { stu_id, attendance_id, date } = ctx.query
-    await Dao.findOne(stu_attendance, { stu_id, attendance_id, date }).then(res => {
-      ctx.body = res
-    }).catch(err => {
-      console.log('err------->', err)
-      throw new ApiError('getStuAttendanceStatus get an error')
-    })
+    await Dao.findAll(stu_attendance, { stu_id, attendance_id, date })
+      .then(res => {
+        ctx.body = res
+      })
+      .catch(err => {
+        console.log('err------->', err)
+        throw new ApiError('getStuAttendanceStatus get an error')
+      })
   }
 
   // 学生登陆时获取当天考勤信息 前后20分钟的考勤信息
